@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "author" content = "Yuruo Gong">
+    <meta name = "email" content = "yg82@rice.edu">
+    <title>Form Processor</title>
+</head>
+<body>
+<h1>Form Processor</h1>
+
+<h2>Query Parameters</h2>
+<table>
+    <tr>
+        <th>Parameter</th>
+        <th>Value</th>
+    </tr>
+    <!-- JavaScript code to extract and display query parameters -->
+    <script>
+        function getQueryParameters() {
+            var params = new URLSearchParams(window.location.search);
+            var table = document.querySelector("table");
+
+            params.forEach(function (value, key) {
+                var row = table.insertRow(-1);
+                var paramName = row.insertCell(0);
+                var paramValue = row.insertCell(1);
+
+                paramName.innerHTML = key;
+
+                if (key === 'timestamp') {
+                    // Convert timestamp to a human-readable datetime
+                    paramValue.innerHTML = new Date(parseInt(value)).toLocaleString();
+                } else if (key.includes('password')) {
+                    paramValue.innerHTML = '*'.repeat(value.length);
+                } else {
+                    paramValue.innerHTML = value;
+                }
+            });
+        }
+
+        getQueryParameters();
+    </script>
+</table>
+
+</body>
+</html>

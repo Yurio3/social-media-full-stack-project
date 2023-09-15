@@ -1,0 +1,309 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "author" content = "Yuruo Gong">
+    <meta name = "email" content = "yg82@rice.edu">
+    <title>User Registration</title>
+
+    <script>
+        window.onload = function(){
+            document.getElementById("form").onsubmit = function(){
+                return checkUsername() && checkPassword() && checkPassword2() && mailbox() && checkMobilePhone()&& checkBirthdate() && checkZipcode();
+            };
+            document.getElementById("username").onblur = checkUsername;
+            document.getElementById("password").onblur = checkPassword;
+            document.getElementById("password2").onblur = checkPassword2;
+            document.getElementById("email").onblur = mailbox;
+            document.getElementById("telphone").onblur = checkMobilePhone;
+            document.getElementById("birthday").onblur = checkBirthdate;
+            document.getElementById("zipcode").onblur = checkZipcode;
+            setCurrentTimestamp();
+
+        }
+        function checkUsername(){
+            var username = document.getElementById("username").value;
+            var reg_username =/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,10}$/;
+            var flag = reg_username.test(username);
+            var s_username = document.getElementById("s_username");
+            if(flag){
+                s_username.innerHTML = "correct";
+                return true;
+            }else{
+                s_username.innerHTML = "Please enter a username consisting of 6 to 16 letters and numbers and not starting with a digit.";
+                return false;
+            }
+
+        }
+
+        function checkPassword(){
+            var password = document.getElementById("password").value;
+            var reg_password = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,10}$/;
+            var flag = reg_password.test(password);
+            var s_password = document.getElementById("s_password");
+            if(flag){
+                s_password.innerHTML = "correct";
+                return true;
+            }else{
+                s_password.innerHTML = "Please enter a six to ten character password containing a combination of upper and lower case letters and numbers.";
+                return false;
+            }
+        }
+
+        function checkPassword2(){
+            var password2 = document.getElementById("password2").value;
+            var reg_password2 = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,10}$/;
+            var flag = reg_password2.test(password2);
+            var s_password2 = document.getElementById("s_password2");
+
+
+            if(flag && password2 == document.getElementById("password").value){
+                s_password2.innerHTML = "correct";
+                return true;
+            }else{
+                s_password2.innerHTML = "Two passwords don't match";
+                return false;
+            }
+        }
+
+        function mailbox(){
+            var email =document.getElementById("email").value;
+            var emailReg=/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+            var flag = emailReg.test(email);
+            var test_email = document.getElementById("test_email");
+            if(flag)
+            {
+                test_email.innerHTML = "correct";
+                return true;
+            }else{
+                test_email.innerHTML = "Incorrect mailbox format";
+                return false;
+            }
+        }
+        function checkMobilePhone() {
+            var telphone = document.getElementById("telphone").value;
+            var phoneReg= /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+            var flag = phoneReg.test(telphone);
+            var mobile_input = document.getElementById("mobile_input");
+            if(flag)
+            {
+                mobile_input.innerHTML = "correct";
+                return true;
+            }else{
+                mobile_input.innerHTML = "Please enter the 10-digit U.S. cell phone number";
+                return false;
+            }
+        }
+
+        function checkZipcode(){
+            var zipcode = document.getElementById("zipcode").value;
+            var zipReg = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+            var flag = zipReg.test(zipcode);
+            var zipcode_input = document.getElementById("zipcode_input");
+
+            if(flag)
+            {
+                zipcode_input.innerHTML = "correct";
+                return true;
+            }else{
+                zipcode_input.innerHTML = "Please enter the 5-digit U.S. zipcode";
+                return false;
+            }
+
+
+        }
+
+
+        function checkBirthdate() {
+
+            var birthdateInput = document.getElementById("birthday").value;
+            var birthdate = new Date(birthdateInput);
+            var currentDate = new Date();
+            var eighteenYearsAgo = new Date(currentDate);
+            eighteenYearsAgo.setFullYear(currentDate.getFullYear() - 18);
+
+            var s_birthdate = document.getElementById("s_birthdate");
+
+
+            if (birthdate <= eighteenYearsAgo) {
+                s_birthdate.innerHTML = "correct";
+                return true;
+            } else {
+                s_birthdate.innerHTML = "Must be at least 18 years old to register";
+
+
+                return false;
+            }
+        }
+
+        //set the current timestamp in milliseconds as the value of the hidden field
+        /*function setCurrentTimestamp() {
+            var timestamp = Date.now(); // Get current timestamp in milliseconds
+            document.getElementById("timestampField").value = timestamp;
+
+            // Convert timestamp to human-readable datetime
+            var datetimeElement = document.getElementById("datetimeDisplay");
+            var datetime = new Date(timestamp);
+            datetimeElement.innerHTML = "Timestamp: " + datetime.toLocaleString();
+
+        }*/
+
+        function setCurrentTimestamp() {
+            var timestamp = Date.now();
+            document.getElementById("timestampField").value = timestamp;
+            document.getElementById("timestampDisplay").innerHTML = new Date(timestamp).toLocaleString();
+        }
+
+        function submitForm() {
+            setCurrentTimestamp();
+            return true;
+        }
+
+
+
+        function checkform(){
+            if(checkUsername() && checkPassword () && checkPassword2() && mailbox() && checkMobilePhone() && checkBirthdate() && checkZipcode()){
+                window.alert("Congratulations! Successful registration");
+                return true;
+            }else{
+                window.alert("Please check to see if your registration information is incorrect.");
+                return false;
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div class="rg_layout">
+    <div class="rg_left">
+        <p>USER REGISTER</p>
+    </div>
+    <div class="rg_center">
+        <div class="rg_form">
+            <form action="formProcessor.html" id="form" method="get" οnsubmit="return submitForm();">
+                <table>
+                    <tr>
+                        <td class="td_left"><label for="username">account name</label></td>
+                        <td class="td_right">
+                            <!-- onblur listens for user input -->
+                            <input type="text" name="username" id="username" placeholder="Please enter account name" οnblur="checkUsername(this.value)">
+                            <span id="s_username" class="error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"><label for="displayName">display name</label></td>
+                        <td class="td_right">
+                            <!-- onblur listens for user input -->
+                            <input type="text" name="displayName" id="displayName" placeholder="Please enter display name">
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="td_left"><label for="password">password</label></td>
+                        <td class="td_right">
+							<span class="box">
+								<input type="password" name="password" id="password" placeholder="Please enter password"  >
+								<label for="password">
+								<img src="img/close.png" alt="" id= "eye1">
+								</label>
+							</span>
+                            <span id="s_password" class="error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"><label for="password2">password confirmation</label></td>
+                        <td class="td_right">
+							<span class="box">
+								<input type="password" name="password2" id="password2" placeholder="Please enter confirmation password" >
+								<label for="password2">
+								<img src="img/close.png" alt="" id= "eye2">
+								</label>
+							</span>
+                            <span id="s_password2" class="error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"><label for="email">email</label></td>
+                        <td class="td_right"><input type="text" name="email" id="email" placeholder="Please enter email">
+                            <span id="test_email" class="error"></span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="td_left"><label for="zipcode">zipcode</label></td>
+                        <td class="td_right"><input type="text" name="zipcode" id="zipcode" placeholder="Please enter zipcode">
+                            <span class="error" id="zipcode_input"></span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="td_left"><label for="telphone">phone number</label></td>
+                        <td class="td_right"><input type="text" name="telphone" id="telphone" placeholder="Please enter phone number" >
+                            <span class="error" id="mobile_input"></span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="td_left"><label for="birthday">birthdate</label></td>
+                        <td class="td_right"><input type="date" name="birthday" id="birthday" placeholder="">
+                            <span id="s_birthdate" class="error"></span>
+                        </td>
+
+                    </tr>
+
+
+                    <!-- 隐藏的时间戳字段 -->
+                    <input type="hidden" id="timestampField" name="timestamp" value="">
+
+
+
+
+
+                    <tr>
+                        <td colspan="2" id="td_sub">
+                            <input type="submit" id="btn_sub" value="submit" οnclick="chcekform();">
+                            <!-- οnclick="checkform();"
+                            is an event handler that calls the "checkform()" function when the button is clicked.
+                            This function may be used for form validation or other actions before submitting the form.-->
+                            <input type="reset" id="btn_subs" value="clear">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var eye1 = document.getElementById('eye1');
+    var password = document.getElementById('password');
+    var flag1 = 0;
+    eye1.onclick = function(){
+        //点击一次后 flag一定要变化
+        if (flag1 == 0){
+            password.type = 'text';
+            eye1.src='img/open.png';
+            flag1 = 1;
+        }else{
+            password.type = 'password';
+            eye1.src='img/close.png';
+            flag1 = 0;
+        }
+    }
+    var eye2 = document.getElementById('eye2');
+    var password2 = document.getElementById('password2');
+    var flag2 = 0;
+    eye2.onclick = function(){
+        if (flag2 == 0){
+            password2.type = 'text';
+            eye2.src='img/open.png';
+            flag2 = 1;
+        }else{
+            password2.type = 'password';
+            eye2.src='img/close.png';
+            flag2 = 0;
+        }
+    }
+</script>
+</body>
+</html>
