@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name = "author" content = "Yuruo Gong">
+  <meta name = "email" content = "yg82@rice.edu">
+
+  <link rel="stylesheet" href="styles.css">
+  <title>User Profile Page</title>
+
+</head>
+<body>
+
+
+<div class = "container">
+  <div class = "header">
+    <h2>User Profile</h2>
+  </div>
+
+<div>
+  <label> Account Name: </label>
+  <span id="currentAccountName">Yuruo Gong (unmodifiable)</span>
+</div>
+
+<div>
+  <label> Date of Birth: </label>
+  <span id="currentBirthday">01/01/2000 (unmodifiable)</span>
+</div>
+
+
+<div>
+  <label for="displayName">Display Name:</label>
+  <span id="currentDisplayName">Yuruo Gong</span>
+  <input type="text" id="displayName" name="displayName" placeholder="New Display Name">
+  <span id="test_name" class="error"></span>
+</div>
+
+<div>
+  <label for="email">Email:</label>
+  <span id="currentEmail">YuruoGong@rice.edu</span>
+  <input type="email" id="email" name="email" placeholder="New Email">
+  <span id="test_email" class="error"></span>
+</div>
+
+<div>
+  <label for="phone">Phone:</label>
+  <span id="currentPhone">123 345 7891</span>
+  <input type="tel" id="phone" name="phone" placeholder="New Phone">
+  <span class="error" id="mobile_input"></span>
+</div>
+
+<div>
+  <label for="zipcode">Zip code:</label>
+  <span id="currentZipcode">77005</span>
+  <input type="text" id="zipcode" name="zipcode" placeholder="New Zip code">
+  <span class="error" id="zipcode_input"></span>
+</div>
+
+<div>
+  <label for="password">Password:</label>
+  <span id="currentPassword">********</span>
+  <input type="password" id="password" name="password" placeholder="New Password">
+  <span id="s_password" class="error"></span>
+</div>
+
+<div>
+  <label for="password-confirm">Password Confirm:</label>
+  <input type="password" id="password-confirm" name="password-confirm" placeholder="Confirm Password">
+  <span id="s_password2" class="error"></span>
+</div>
+
+<button id="updateButton">Update</button>
+<a href="main.html">Return to Main Page</a>
+
+
+<div id="message" class="hidden"></div>
+</div>
+<script src="profile.js"></script>
+</body>
+</html>
